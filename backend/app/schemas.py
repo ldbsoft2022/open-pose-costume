@@ -23,4 +23,23 @@ class JobOut(BaseModel):
     status: str
     model: str
     created_at: Any
-class CreditOut(BaseModel): balance: int
+    error_code: str | None = None
+class CreditOut(BaseModel):
+    balance: int
+class ProjectCreate(BaseModel):
+    name: str = Field(min_length=1, max_length=160)
+class ProjectOut(BaseModel):
+    id: UUID
+    name: str
+    created_at: Any
+class CharacterCreate(BaseModel):
+    name: str = Field(min_length=1, max_length=120)
+    description: str = Field(default="", max_length=4000)
+    reference_asset_ids: list[UUID] = Field(default_factory=list, max_length=8)
+class CharacterOut(BaseModel):
+    id: UUID
+    name: str
+    description: str
+    reference_asset_ids: list[UUID]
+    identity_version: int
+    created_at: Any
