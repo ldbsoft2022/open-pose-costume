@@ -30,6 +30,7 @@ class CreditTransaction(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
 class GenerationJob(Base):
     __tablename__ = "generation_jobs"
+    __table_args__ = (UniqueConstraint("user_id", "request_key", name="uq_generation_job_user_request"),)
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), index=True)
     status: Mapped[str] = mapped_column(String(24), default="queued", index=True)
