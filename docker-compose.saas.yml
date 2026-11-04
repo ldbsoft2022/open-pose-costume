@@ -6,7 +6,7 @@ services:
       POSTGRES_USER: creator
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local-dev-only}
     ports: ["5433:5432"]
-    volumes: [creator_pg:/var/lib/postgresql/data, ./backend/migrations/0001_initial.sql:/docker-entrypoint-initdb.d/001.sql:ro]
+    volumes: [creator_pg:/var/lib/postgresql/data, ./backend/migrations/0001_initial.sql:/docker-entrypoint-initdb.d/001.sql:ro, ./backend/migrations/0002_job_idempotency_and_constraints.sql:/docker-entrypoint-initdb.d/002.sql:ro]
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U creator -d creator_studio"]
       interval: 5s
