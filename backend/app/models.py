@@ -33,6 +33,7 @@ class GenerationJob(Base):
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), index=True)
     status: Mapped[str] = mapped_column(String(24), default="queued", index=True)
+    request_key: Mapped[str] = mapped_column(String(128))
     model: Mapped[str] = mapped_column(String(120))
     prompt: Mapped[str] = mapped_column(Text)
     parameters: Mapped[dict] = mapped_column(JSONB, default=dict)
